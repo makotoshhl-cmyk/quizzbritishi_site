@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Британские пословицы и поговорки | Опросник</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #071a0f 0%, #0a2f1a 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #eef5e8;
+            padding: 2rem 1rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(15, 40, 25, 0.65);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(80, 130, 80, 0.3);
+        }
+
+        /* введение */
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid #2c6e3c;
+            padding-bottom: 1.8rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #d4e8b5, #9fcc8b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 1rem auto 0;
+            color: #cfebc4;
+        }
+
+        .intro-card {
+            background: #1a3a2a;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1.8rem 0;
+            border-left: 6px solid #6fbf4c;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .intro-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+            color: #c3e8b0;
+        }
+
+        /* форма пользователя */
+        .user-section {
+            background: #102f1f;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: flex-end;
+            border: 1px solid #2b6e3b;
+        }
+
+        .user-field {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .user-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #c2e0b0;
+            font-size: 0.9rem;
+        }
+
+        .user-field input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 2rem;
+            border: none;
+            background: #f2f9ec;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0a2f1a;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .user-field input:focus {
+            box-shadow: 0 0 0 3px #6fbf4c;
+            background: #ffffff;
+        }
+
+        /* опросник */
+        .quiz-section {
+            margin: 2rem 0;
+        }
+
+        .question-card {
+            background: #173d29;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: 0.1s;
+            border: 1px solid #2c7840;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-right: 1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            padding-left: 0.5rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            cursor: pointer;
+            background: #1f4a34;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            transition: 0.1s;
+        }
+
+        .option:hover {
+            background: #2a6042;
+        }
+
+        input[type="radio"] {
+            accent-color: #85d167;
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+        }
+
+        .option label {
+            flex: 1;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            background: #5fa843;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0a2819;
+            border-radius: 3rem;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            margin: 1rem 0;
+            box-shadow: 0 6px 0 #2d5730;
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #2d5730;
+        }
+
+        /* результаты */
+        .results-container {
+            margin-top: 2rem;
+            background: #0f2d1c;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border-top: 4px solid #80c45e;
+        }
+
+        .result-item {
+            background: #1f452f;
+            margin-bottom: 1rem;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            border-left: 8px solid;
+        }
+
+        .result-item.correct {
+            border-left-color: #8bc34a;
+        }
+
+        .result-item.wrong {
+            border-left-color: #e07c4c;
+        }
+
+        .result-question {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-answer {
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .explanation {
+            background: #2c4d38;
+            padding: 0.5rem 0.8rem;
+            border-radius: 1rem;
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            color: #f1fadf;
+            border-left: 3px solid #ffb347;
+        }
+
+        .score-badge {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: #2c6e3b;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border-color: #2b683b;
+            margin: 1rem 0;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 2rem;
+            color: #9bbd8a;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.2rem;
+            }
+            .question-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📖 Wise Words, British Souls</h1>
+        <p>Пословицы и поговорки в британском английском: язык, мудрость, культура</p>
+    </div>
+
+    <div class="intro-card">
+        <h2>🌿 Откройте для себя британскую паремиологию</h2>
+        <p>Британские пословицы — это не просто устойчивые фразы. Они отражают прагматизм, чувство юмора, любовь к порядку и многовековой опыт туманного Альбиона. <br>
+        «Honesty is the best policy», «Don't look a gift horse in the mouth» — за каждой фразой скрываются целые истории, библейские сюжеты и народная смекалка. <br>
+        Знаете ли вы их истинный смысл? Пройдите опросник и проверьте себя! После ответов вы получите разбор ошибок и объяснения. </p>
+    </div>
+
+    <!-- блок имени и возраста -->
+    <div class="user-section">
+        <div class="user-field">
+            <label>✨ Ваше имя</label>
+            <input type="text" id="userName" placeholder="например, Арина" autocomplete="off">
+        </div>
+        <div class="user-field">
+            <label>📅 Ваш возраст</label>
+            <input type="text" id="userAge" placeholder="14, 16, 42 ..." autocomplete="off">
+        </div>
+    </div>
+
+    <!-- опросник: 12 вопросов -->
+    <div class="quiz-section" id="quizSection">
+        <h2 style="margin-bottom: 1rem;">🍃 Проверьте себя: британские пословицы</h2>
+        <!-- вопросы будут динамически добавлены через js, чтобы удобно было редактировать данные -->
+    </div>
+
+    <button class="btn-submit" id="submitQuiz">✨ ПОКАЗАТЬ РАЗБОР ✨</button>
+
+    <div id="resultsArea" class="results-container" style="display: none;">
+        <!-- сюда вставим результаты -->
+    </div>
+    <footer>© 2026 | Проект по английскому языку | Пословицы британского английского</footer>
+</div>
+
+<script>
+    // Банк вопросов (12 вопросов). Каждый: текст, варианты (массив), правильный индекс (0..3), объяснение
+    const questionsData = [
+        {
+            text: "Как правильно переводится пословица «The early bird catches the worm»?",
+            options: [
+                "Поздняя пташка мышь найдёт",
+                "Кто рано встаёт, тому Бог подаёт",
+                "Ранний червь достаётся птице",
+                "Утро вечера мудренее"
+            ],
+            correct: 1,
+            explanation: "Правильный перевод: «Кто рано встаёт, тому Бог подаёт». Британский прагматизм: усердие и инициатива вознаграждаются."
+        },
+        {
+            text: "Какая ситуация лучше всего иллюстрирует пословицу «Don't count your chickens before they hatch»?",
+            options: [
+                "Поделиться планом с другом до его выполнения",
+                "Потратить выигрыш в лотерее, когда билет ещё не куплен",
+                "Заранее праздновать успех, хотя результат ещё не известен",
+                "Купить яйца, не проверив их свежесть"
+            ],
+            correct: 2,
+            explanation: "Смысл: не радуйся результату преждевременно, не строй иллюзий, пока дело не сделано."
+        },
+        {
+            text: "Что означает британская поговорка «Actions speak louder than words»?",
+            options: [
+                "Действия громче слов",
+                "Слова лечат, дела калечат",
+                "Не надо хвастаться, если не умеешь",
+                "Лучше один раз сделать, чем сто раз сказать"
+            ],
+            correct: 0,
+            explanation: "Прямое значение: поступки важнее обещаний. В британской культуре ценится надёжность."
+        },
+        {
+            text: "Выберите русский аналог пословицы «When in Rome, do as the Romans do».",
+            options: [
+                "В чужой монастырь со своим уставом не ходят",
+                "С волками жить — по-волчьи выть",
+                "Со своим самоваром в гости не ездят",
+                "Как аукнется, так и откликнется"
+            ],
+            correct: 0,
+            explanation: "«В чужой монастырь со своим уставом не ходят» — нужно уважать традиции и обычаи места, где находишься."
+        },
+        {
+            text: "Пословица «A watched pot never boils» учит нас:",
+            options: [
+                "Нужно следить за приготовлением еды",
+                "Нетерпение не ускоряет результат",
+                "Лучше готовить на медленном огне",
+                "Время течёт медленно, если скучаешь"
+            ],
+            correct: 1,
+            explanation: "Если постоянно ждать и следить, кажется, что время тянется бесконечно. Смысл: не торопи события."
+        },
+        {
+            text: "Какая из этих пословиц имеет библейское происхождение?",
+            options: [
+                "Make hay while the sun shines",
+                "The root of all evil",
+                "Every dog has its day",
+                "It's raining cats and dogs"
+            ],
+            correct: 1,
+            explanation: "«Корень всех зол» (любовь к деньгам) — из Библии (1-е послание Тимофею). Другие имеют фольклорное или литературное происхождение."
+        },
+        {
+            text: "Как понять фразу «Don't look a gift horse in the mouth»?",
+            options: [
+                "Не проверяй подарок слишком придирливо",
+                "Подаренному коню в зубы не смотрят",
+                "Не будь неблагодарным, принимая дар",
+                "Все варианты верны"
+            ],
+            correct: 3,
+            explanation: "Пословица учит не критиковать подарок, быть благодарным. Все три варианта передают суть."
+        },
+        {
+            text: "Что значит «To be or not to be» в контексте проекта?",
+            options: [
+                "Британская поговорка о сомнениях",
+                "Цитата из Шекспира, часто используемая как афоризм",
+                "Древняя пословица викингов",
+                "Название британского закона"
+            ],
+            correct: 1,
+            explanation: "Это строка из «Гамлета» Шекспира. Хотя это не народная пословица, она стала крылатой и отражает британскую литературную традицию."
+        },
+        {
+            text: "Какая пословица подходит для ситуации, когда друг постоянно откладывает важное дело, а время уходит?",
+            options: [
+                "Better late than never",
+                "Make hay while the sun shines",
+                "Every cloud has a silver lining",
+                "Still waters run deep"
+            ],
+            correct: 1,
+            explanation: "«Куй железо, пока горячо» — нужно действовать, пока есть возможность, не упуская момент."
+        },
+        {
+            text: "«Honesty is the best policy». Что подчёркивает слово «policy» в этой пословице?",
+            options: [
+                "Честность — лучшая политика (стратегия), это практично",
+                "Честность — это закон",
+                "Политики всегда честны",
+                "Пословица о страховых полисах"
+            ],
+            correct: 0,
+            explanation: "Слово «policy» (стратегия, линия поведения) пришло из экономики: честность выгодна и рациональна — чисто британский прагматизм."
+        },
+        {
+            text: "Какой смысл передаёт пословица «Every dog has its day»?",
+            options: [
+                "Каждая собака должна получить свою кость",
+                "У каждого бывает звездный час или удача",
+                "Даже неудачник однажды добьётся успеха",
+                "Второй вариант и третий верны"
+            ],
+            correct: 3,
+            explanation: "У каждого когда-то наступает момент успеха, даже у самого невезучего. Выражение вселяет надежду."
+        },
+        {
+            text: "Выберите верное употребление: ваш коллега слишком осторожничает и перестраховывается. Какая пословица его описывает?",
+            options: [
+                "Better safe than sorry",
+                "A rolling stone gathers no moss",
+                "Too many cooks spoil the broth",
+                "The pen is mightier than the sword"
+            ],
+            correct: 0,
+            explanation: "«Лучше перебдеть, чем недобдеть» — именно о чрезмерной, но оправданной осторожности."
+        }
+    ];
+
+    // Функция отрисовки всех вопросов
+    function renderQuestions() {
+        const container = document.getElementById('quizSection');
+        if (!container) return;
+        let html = `<h2 style="margin-bottom: 1rem;">🍃 Проверьте себя: британские пословицы</h2>`;
+        questionsData.forEach((q, idx) => {
+            html += `
+                <div class="question-card" id="qCard-${idx}">
+                    <div class="question-text">${idx+1}. ${q.text}</div>
+                    <div class="options">
+            `;
+            q.options.forEach((opt, optIdx) => {
+                html += `
+                    <div class="option">
+                        <input type="radio" name="q${idx}" value="${optIdx}" id="q${idx}_${optIdx}">
+                        <label for="q${idx}_${optIdx}">${opt}</label>
+                    </div>
+                `;
+            });
+            html += `</div></div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // Получить выбранные ответы (массив индексов или null если не выбран)
+    function getSelectedAnswers() {
+        let answers = [];
+        for (let i = 0; i < questionsData.length; i++) {
+            const radios = document.querySelectorAll(`input[name="q${i}"]`);
+            let selected = null;
+            for (let j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    selected = parseInt(radios[j].value);
+                    break;
+                }
+            }
+            answers.push(selected);
+        }
+        return answers;
+    }
+
+    // Проверка имени и возраста
+    function validateUser() {
+        const name = document.getElementById('userName').value.trim();
+        const age = document.getElementById('userAge').value.trim();
+        if (name === "") {
+            alert("Пожалуйста, введите ваше имя.");
+            return false;
+        }
+        if (age === "") {
+            alert("Укажите возраст для статистики.");
+            return false;
+        }
+        if (isNaN(parseInt(age)) || parseInt(age) <= 0) {
+            alert("Возраст должен быть числом больше 0.");
+            return false;
+        }
+        return true;
+    }
+
+    // Главная функция проверки и показа результатов
+    function evaluateAndShow() {
+        if (!validateUser()) return;
+
+        const userName = document.getElementById('userName').value.trim();
+        const userAge = document.getElementById('userAge').value.trim();
+        const selectedAnswers = getSelectedAnswers();
+
+        // Проверка что на все вопросы дан ответ
+        let allAnswered = true;
+        for (let i = 0; i < selectedAnswers.length; i++) {
+            if (selectedAnswers[i] === null) {
+                allAnswered = false;
+                break;
+            }
+        }
+        if (!allAnswered) {
+            alert("Пожалуйста, ответьте на все 12 вопросов, прежде чем увидеть разбор.");
+            return;
+        }
+
+        // Подсчет правильных и сбор деталей
+        let correctCount = 0;
+        let details = [];
+        for (let i = 0; i < questionsData.length; i++) {
+            const isCorrect = (selectedAnswers[i] === questionsData[i].correct);
+            if (isCorrect) correctCount++;
+            const userAnswerText = (selectedAnswers[i] !== null) ? questionsData[i].options[selectedAnswers[i]] : "Нет ответа";
+            const correctAnswerText = questionsData[i].options[questionsData[i].correct];
+            details.push({
+                questionText: questionsData[i].text,
+                userAnswer: userAnswerText,
+                correctAnswer: correctAnswerText,
+                isCorrect: isCorrect,
+                explanation: questionsData[i].explanation
+            });
+        }
+
+        const percent = Math.round((correctCount / questionsData.length) * 100);
+        // отображение блока результатов
+        const resultsDiv = document.getElementById('resultsArea');
+        resultsDiv.style.display = 'block';
+
+        let resultHtml = `
+            <div class="score-badge">🎯 ${userName}, возраст ${userAge} : ${correctCount} / ${questionsData.length} (${percent}%)</div>
+            <h3>📋 Детальный разбор по каждому вопросу:</h3>
+        `;
+
+        for (let i = 0; i < details.length; i++) {
+            const d = details[i];
+            const statusClass = d.isCorrect ? 'correct' : 'wrong';
+            const statusIcon = d.isCorrect ? '✅' : '❌';
+            resultHtml += `
+                <div class="result-item ${statusClass}">
+                    <div class="result-question">${statusIcon} Вопрос ${i+1}: ${d.questionText}</div>
+                    <div class="result-answer"><strong>Ваш ответ:</strong> ${d.userAnswer}</div>
+                    <div class="result-answer"><strong>Правильный ответ:</strong> ${d.correctAnswer}</div>
+            `;
+            if (!d.isCorrect) {
+                resultHtml += `<div class="explanation"><strong>📖 Объяснение ошибки:</strong> ${d.explanation}</div>`;
+            } else {
+                resultHtml += `<div class="explanation" style="background:#2f6842;"><strong>✨ Верно!</strong> ${d.explanation}</div>`;
+            }
+            resultHtml += `</div>`;
+        }
+
+        resultHtml += `<hr><p style="text-align:center">💡 Пословицы — это живое наследие. Практикуйтесь, и британская речь станет ярче!</p>`;
+        resultsDiv.innerHTML = resultHtml;
+
+        // Прокрутка к результатам
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Инициализация при загрузке
+    window.addEventListener('DOMContentLoaded', () => {
+        renderQuestions();
+        const submitBtn = document.getElementById('submitQuiz');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', evaluateAndShow);
+        }
+    });
+</script>
+</body>
+</html>
